@@ -136,3 +136,35 @@ footer {
     padding: 10px 0; /* Adiciona padding vertical */
     margin-top: 20px; /* Espaçamento acima do footer */
 }
+
+.certification-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.certification-grid img {
+    width: 120px; /* Define a largura uniforme */
+    height: auto; /* Mantém a proporção da imagem */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    transition: transform 0.3s ease; /* Transição suave para efeitos */
+}
+
+.certification-grid img:hover {
+    transform: scale(1.1); /* Aumenta a imagem ao passar o mouse */
+}
+
+@media (max-width: 768px) {
+    .certification-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .certification-grid img {
+        width: 100px; /* Ajusta o tamanho das imagens para telas menores */
+    }
+}
