@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linux - DevOps Technologies</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/linux.css"> <!-- CSS separado para Linux -->
 </head>
 <body>
     <header>
@@ -21,8 +21,122 @@
         <section class="content">
             <h2>Linux</h2>
             <img src="../images/linux.png" alt="Linux">
-            <p><strong>Linux</strong> é um sistema operacional de código aberto amplamente utilizado em servidores, computação em nuvem e infraestrutura de TI. Sua flexibilidade e segurança o tornam uma escolha ideal para ambientes DevOps e cloud computing.</p>
+            <p><strong>Linux</strong> é um sistema operacional de código aberto amplamente utilizado em servidores, computação em nuvem e infraestrutura de TI. Sua flexibilidade, segurança e eficiência fazem do Linux uma escolha ideal para ambientes DevOps. Além disso, ele oferece as seguintes vantagens:</p>
+            
+            <div class="section-divider"></div> <!-- Adiciona borda separadora -->
+            
+            <h3>Benefícios do Linux</h3>
+            <ul>
+                <li><strong>Segurança:</strong> O Linux é conhecido por ser mais seguro que muitos outros sistemas operacionais devido à sua arquitetura modular e ao modelo de permissões.</li>
+                <li><strong>Estabilidade:</strong> É amplamente utilizado em servidores críticos devido à sua confiabilidade e capacidade de funcionar por longos períodos sem reinicializações.</li>
+                <li><strong>Customização:</strong> Os usuários têm liberdade para ajustar o sistema de acordo com suas necessidades, o que o torna perfeito para desenvolvedores e administradores de sistemas.</li>
+                <li><strong>Suporte a Ferramentas DevOps:</strong> O Linux possui uma vasta gama de ferramentas nativas e compatibilidade com scripts, ideal para automação, deployment contínuo e orquestração de containers.</li>
+                <li><strong>Gratuito:</strong> O Linux é um software de código aberto, o que significa que você não precisa pagar por licenças caras.</li>
+            </ul>
+            
+            <div class="section-divider"></div> <!-- Adiciona borda separadora -->
+
+            <h3>Teste seus comandos Linux</h3>
+            <form id="linux-command-form">
+                <label for="linux-command">Digite um comando Linux:</label>
+                <input type="text" id="linux-command" name="linux-command" placeholder="Ex: ls -l" required>
+                <button type="submit">Executar</button>
+            </form>
+            
+            <div id="command-result" class="command-result"></div>
+
+            <div class="section-divider"></div> <!-- Adiciona borda separadora -->
+            
+            <h3>Comandos Básicos</h3>
+            <ul>
+                <li>ls -l</li>
+                <li>pwd</li>
+                <li>cd</li>
+                <li>cp</li>
+                <li>mv</li>
+                <li>rm</li>
+            </ul>
         </section>
     </div>
+
+    <script>
+        // Dados dos comandos Linux com saída fictícia
+        const linuxCommands = {
+            "ls -l": {
+                description: "Lista arquivos e diretórios com detalhes.",
+                example: "ls -l",
+                output: `
+                    total 16
+                    drwxr-xr-x 2 user user 4096 Sep 10 10:00 dir1
+                    -rw-r--r-- 1 user user  123 Sep 10 10:00 file1.txt
+                    -rw-r--r-- 1 user user  456 Sep 10 10:00 file2.txt
+                `
+            },
+            "pwd": {
+                description: "Exibe o caminho completo do diretório atual.",
+                example: "pwd",
+                output: `
+                    /home/user/projeto
+                `
+            },
+            "cd": {
+                description: "Muda o diretório de trabalho.",
+                example: "cd /home/user/projeto",
+                output: `
+                    (Sem saída específica.)
+                `
+            },
+            "cp": {
+                description: "Copia arquivos ou diretórios.",
+                example: "cp file1.txt file2.txt",
+                output: `
+                    (O arquivo será copiado. Não há saída a ser exibida.)
+                `
+            },
+            "mv": {
+                description: "Move ou renomeia arquivos ou diretórios.",
+                example: "mv file1.txt file3.txt",
+                output: `
+                    (O arquivo será movido ou renomeado. Não há saída a ser exibida.)
+                `
+            },
+            "rm": {
+                description: "Remove arquivos ou diretórios.",
+                example: "rm file3.txt",
+                output: `
+                    (O arquivo será removido. Não há saída a ser exibida.)
+                `
+            }
+        };
+
+        document.getElementById('linux-command-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const command = document.getElementById('linux-command').value.trim();
+            const result = document.getElementById('command-result');
+            
+            if (linuxCommands[command]) {
+                result.innerHTML = `
+                    <h4>${command}</h4>
+                    <p><strong>Descrição:</strong> ${linuxCommands[command].description}</p>
+                    <p><strong>Exemplo:</strong> <code>${linuxCommands[command].example}</code></p>
+                    <h5>Saída do Terminal:</h5>
+                    <pre class="output">${linuxCommands[command].output}</pre>
+                `;
+                result.style.backgroundColor = "#e0f7fa";
+                result.style.border = "1px solid #00796b";
+                result.style.padding = "15px";
+                result.style.borderRadius = "8px";
+            } else {
+                result.innerHTML = `
+                    <p><strong>Comando não reconhecido.</strong> Por favor, tente novamente.</p>
+                `;
+                result.style.backgroundColor = "#ffebee";
+                result.style.border = "1px solid #d32f2f";
+                result.style.padding = "15px";
+                result.style.borderRadius = "8px";
+            }
+        });
+    </script>
 </body>
 </html>
