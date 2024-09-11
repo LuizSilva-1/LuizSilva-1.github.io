@@ -22,7 +22,100 @@
             <h2>Kubernetes</h2>
             <img src="../images/kubernetes.png" alt="Kubernetes" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
             <p><strong>Kubernetes</strong> é uma plataforma de orquestração de contêineres que automatiza o deployment, o gerenciamento e o escalonamento de aplicações em contêiner, garantindo alta disponibilidade e escalabilidade.</p>
+            
+            <h3>Teste seus comandos Kubernetes</h3>
+            <form id="kubernetes-command-form">
+                <label for="kubernetes-command">Digite um comando Kubernetes:</label>
+                <input type="text" id="kubernetes-command" name="kubernetes-command" placeholder="Ex: kubectl get pods" required>
+                <button type="submit">Executar</button>
+            </form>
+            
+            <div id="command-result" class="command-result"></div>
+            
+            <h3>Comandos Básicos</h3>
+            <ul>
+                <li>kubectl get pods</li>
+                <li>kubectl get services</li>
+                <li>kubectl create deployment</li>
+                <li>kubectl scale deployment</li>
+                <li>kubectl delete pod</li>
+                <li>kubectl logs</li>
+            </ul>
         </section>
     </div>
+
+    <script>
+        // Dados dos comandos Kubernetes com saída fictícia
+        const kubernetesCommands = {
+            "kubectl get pods": {
+                description: "Lista todos os pods no cluster.",
+                example: "kubectl get pods",
+                output: `
+                    NAME        READY   STATUS    RESTARTS   AGE
+                    my-pod-1    1/1     Running   0          5m
+                    my-pod-2    1/1     Running   0          10m
+                `
+            },
+            "kubectl get services": {
+                description: "Lista todos os serviços no cluster.",
+                example: "kubectl get services",
+                output: `
+                    NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+                    my-service   ClusterIP   10.0.0.1       <none>        80/TCP     5m
+                    another-svc  NodePort    10.0.0.2       <none>        80:30001/TCP 10m
+                `
+            },
+            "kubectl create deployment": {
+                description: "Cria um novo deployment.",
+                example: "kubectl create deployment my-deployment --image=nginx",
+                output: `
+                    deployment.apps/my-deployment created
+                `
+            },
+            "kubectl scale deployment": {
+                description: "Escala o número de réplicas de um deployment.",
+                example: "kubectl scale deployment my-deployment --replicas=3",
+                output: `
+                    deployment.apps/my-deployment scaled
+                `
+            },
+            "kubectl delete pod": {
+                description: "Remove um pod.",
+                example: "kubectl delete pod my-pod",
+                output: `
+                    pod "my-pod" deleted
+                `
+            },
+            "kubectl logs": {
+                description: "Mostra os logs de um pod.",
+                example: "kubectl logs my-pod",
+                output: `
+                    Starting nginx
+                    Listening on port 80
+                `
+            }
+        };
+
+        document.getElementById('kubernetes-command-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const command = document.getElementById('kubernetes-command').value.trim();
+            const result = document.getElementById('command-result');
+            
+            if (kubernetesCommands[command]) {
+                result.innerHTML = `
+                    <h4>${command}</h4>
+                    <p><strong>Descrição:</strong> ${kubernetesCommands[command].description}</p>
+                    <p><strong>Exemplo:</strong> <code>${kubernetesCommands[command].example}</code></p>
+                    <h5>Saída do Terminal:</h5>
+                    <pre class="output">${kubernetesCommands[command].output}</pre>
+                `;
+            } else {
+                result.innerHTML = `
+                    <p><strong>Comando não reconhecido.</strong> Por favor, tente novamente.</p>
+                `;
+            }
+        });
+    </script>
 </body>
 </html>
